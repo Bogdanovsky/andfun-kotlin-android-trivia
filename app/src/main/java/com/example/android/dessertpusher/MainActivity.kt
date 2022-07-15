@@ -18,6 +18,7 @@ package com.example.android.dessertpusher
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO (01) Add an info level log statement here
+        Log.i("MainActivity", "onCreate call-back method called")
 
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -85,6 +86,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
      * Updates the score when the dessert is clicked. Possibly shows a new dessert.
      */
     private fun onDessertClicked() {
+        Log.i("MainActivity", "onDessertClicked called")
 
         // Update the score
         revenue += currentDessert.price
@@ -124,6 +126,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
      * Menu methods
      */
     private fun onShare() {
+        Log.i("MainActivity", "onShare called")
         val shareIntent = ShareCompat.IntentBuilder.from(this)
                 .setText(getString(R.string.share_text, dessertsSold, revenue))
                 .setType("text/plain")
@@ -138,6 +141,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
+        Log.i("MainActivity", "onCreateOptionsMenu called")
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -145,8 +149,13 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         when (item.itemId) {
             R.id.shareMenuButton -> onShare()
         }
+        Log.i("MainActivity", "onOptionsItemSelected called")
         return super.onOptionsItemSelected(item)
     }
 
     // TODO (02) Override the onStart lifecycle method and add an info level log statement
+    override fun onStart() {
+        super.onStart()
+        Log.i("MainActivity", "onStart method called")
+    }
 }
